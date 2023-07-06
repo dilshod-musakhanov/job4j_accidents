@@ -19,6 +19,39 @@
 </head>
 <body>
 <div class="container">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Test</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Test</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Test</a>
+                    </li>
+                    <li>
+                        <div class="container-fluid">
+                            <form class="d-flex" role="search">
+                                <input class="form-control me-2" type="search" aria-label="Search">
+                                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <span class="nav-link text-secondary" th:text="${user}"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
     <h1>Hello from Spring</h1>
     <h2>This is a new project</h2>
 </div>
