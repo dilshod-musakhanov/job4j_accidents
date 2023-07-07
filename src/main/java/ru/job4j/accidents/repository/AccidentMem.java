@@ -3,6 +3,7 @@ package ru.job4j.accidents.repository;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Accident;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -46,16 +47,18 @@ public class AccidentMem {
         return Optional.ofNullable(accident);
     }
 
-    public Map<Integer, Accident> getAllAccidents() {
-        return accidents;
+    public List<Accident> getAllAccidents() {
+        return accidents.values().stream().toList();
     }
 
     public boolean updateAccident(Accident accident) {
-        if (accidents.containsKey(accident.getId())) {
-            accidents.put(accident.getId(), accident);
-            return true;
-        }
-        return false;
+        int id  = accident.getId();
+        return accidents.computeIfPresent(id, (k, v) -> {
+            v.setName(accident.getName());
+            v.setText(accident.getText());
+            v.setAddress(accident.getAddress());
+            return v;
+        }) != null;
     }
 
     public boolean deleteAccident(int id) {

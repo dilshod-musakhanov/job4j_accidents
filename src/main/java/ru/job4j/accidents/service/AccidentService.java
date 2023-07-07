@@ -6,7 +6,6 @@ import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.repository.AccidentMem;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -23,7 +22,7 @@ public class AccidentService {
     }
 
     public List<Accident> getAllAccidents() {
-        return accidentMem.getAllAccidents().values().stream().toList();
+        return accidentMem.getAllAccidents();
     }
 
     public boolean updateAccident(Accident accident) {
