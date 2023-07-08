@@ -51,8 +51,7 @@ public class AccidentMem {
         return accidents.values().stream().toList();
     }
 
-    public boolean updateAccident(Accident accident) {
-        int id  = accident.getId();
+    public boolean updateAccident(int id, Accident accident) {
         return accidents.computeIfPresent(id, (k, v) -> {
             v.setName(accident.getName());
             v.setText(accident.getText());

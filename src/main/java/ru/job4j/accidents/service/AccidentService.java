@@ -25,8 +25,8 @@ public class AccidentService {
         return accidentMem.getAllAccidents();
     }
 
-    public boolean updateAccident(Accident accident) {
-        return accidentMem.updateAccident(accident);
+    public boolean updateAccident(int id, Accident accident) {
+        return accidentMem.updateAccident(id, accident);
     }
 
     public boolean deleteAccidentById(int id) {
