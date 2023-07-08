@@ -24,8 +24,8 @@ public class AccidentController {
         return "redirect:/index";
     }
 
-    @GetMapping("/edit/{id}")
-    public String editAccident(Model model, @PathVariable int id) {
+    @GetMapping("/edit")
+    public String editAccident(Model model, @RequestParam int id) {
         var accidentOptional = accidentService.getAccidentById(id);
         if (accidentOptional.isEmpty()) {
             model.addAttribute("message", "Accident not found");

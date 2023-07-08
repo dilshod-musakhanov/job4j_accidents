@@ -77,7 +77,7 @@
                     <td th:text="${accident.text}"></td>
                     <td th:text="${accident.address}"></td>
                     <td>
-                        <a th:href="@{/accident/edit/{id}(id=${accident.id})}">
+                        <a th:href="@{|/accident/edit?id=${accident.id}|}">
                             <i class="fa fa-pencil-square-o btn"></i>
                         </a>
                     </td>
