@@ -55,18 +55,33 @@
             <div class="card-body">
                 <form th:action="@{/accident/save}" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="0"/>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" name="name" id="name" required>
+                    <div class="col-md-6">
+                        <div class="form-group align-items-start">
+                            <label for="type.id" class="form-label">Type</label>
+                            <select class="form-control" id="type.id" name="typeId" required>
+                                <option hidden disabled selected value></option>
+                                <option th:each="accidentType : ${accidentTypes}" th:value="${accidentType.id}" th:text="${accidentType.name}"></option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="text">Text</label>
-                        <input type="text" class="form-control" name="text" id="text" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <input type="text" class="form-control" name="address" id="address" required>
-                    </div>
+                        <div class="col-md-6">
+                            <div class="form-group align-items-start">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" name="name" id="name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group align-items-start">
+                                <label for="text">Text</label>
+                                <input type="text" class="form-control" name="text" id="text" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group align-items-start">
+                                <label for="address">Address</label>
+                                <input type="text" class="form-control" name="address" id="address" required>
+                            </div>
+                        </div>
                     <button type="submit" class="btn btn-primary mt-3">Submit</button>
                 </form>
             </div>

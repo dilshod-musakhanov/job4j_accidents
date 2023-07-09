@@ -56,6 +56,17 @@
                 <form th:action="@{/accident/update}" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" th:value="${accident.id}">
                     <div class="form-group">
+                        <label for="typeId" class="form-label">Type</label>
+                        <select class="form-control" id="typeId" name="typeId" required>
+                            <option
+                                    th:each="accidentType : ${accidentTypes}"
+                                    th:value="${accidentType.id}"
+                                    th:text="${accidentType.name}"
+                                    th:selected="${accidentType.name == accident.type.name}" >
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" name="name" id="name" th:field="${accident.name}" required>
                     </div>

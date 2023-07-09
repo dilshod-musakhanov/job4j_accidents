@@ -68,6 +68,9 @@
                         <p class="fw-semibold">Address</p>
                     </td>
                     <td>
+                        <p class="fw-semibold">Type</p>
+                    </td>
+                    <td>
                         <p class="fw-semibold"></p>
                     </td>
                 </tr>
@@ -76,6 +79,7 @@
                     <td th:text="${accident.name}"></td>
                     <td th:text="${accident.text}"></td>
                     <td th:text="${accident.address}"></td>
+                    <td th:text="${accident.type.name}"></td>
                     <td>
                         <a th:href="@{|/accident/edit?id=${accident.id}|}">
                             <i class="fa fa-pencil-square-o btn"></i>

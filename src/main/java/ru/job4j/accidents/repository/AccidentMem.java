@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class AccidentMem {
     private final Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
     private final AtomicInteger idGenerator = new AtomicInteger(0);
+    private final AccidentTypeMem accidentTypeMem = new AccidentTypeMem();
 
     public AccidentMem() {
         init();
@@ -24,12 +25,14 @@ public class AccidentMem {
         accident1.setName("Accident1");
         accident1.setText("Minor accident");
         accident1.setAddress("Sheikh Zayed Road");
+        accident1.setType(accidentTypeMem.getAccidentTypeById(1).get());
 
         Accident accident2 = new Accident();
         accident2.setId(idGenerator.incrementAndGet());
         accident2.setName("Accident 2");
         accident2.setText("Major accident");
         accident2.setAddress("Garhoud Bridge");
+        accident2.setType(accidentTypeMem.getAccidentTypeById(2).get());
 
         accidents.put(accident1.getId(), accident1);
         accidents.put(accident2.getId(), accident2);
@@ -56,6 +59,7 @@ public class AccidentMem {
             v.setName(accident.getName());
             v.setText(accident.getText());
             v.setAddress(accident.getAddress());
+            v.setType(accident.getType());
             return v;
         }) != null;
     }
