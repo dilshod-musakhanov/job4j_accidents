@@ -12,8 +12,10 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AccidentService {
     private final AccidentMem accidentMem;
+    private final AccidentTypeMemService accidentTypeMemService;
 
     public Optional<Accident> addAccident(Accident accident) {
+        accident.setType(accidentTypeMemService.getAccidentTypeById(accident.getType().getId()).get());
         return accidentMem.addAccident(accident);
     }
 
