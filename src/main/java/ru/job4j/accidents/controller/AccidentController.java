@@ -8,7 +8,9 @@ import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.service.AccidentService;
 import ru.job4j.accidents.service.AccidentTypeMemService;
+import ru.job4j.accidents.service.RuleService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -17,19 +19,22 @@ import java.util.List;
 public class AccidentController {
     private final AccidentService accidentService;
     private final AccidentTypeMemService accidentTypeMemService;
+    private final RuleService ruleService;
 
     @GetMapping("/create")
     public String viewCreateAccident(Model model) {
         List<AccidentType> accidentTypes = accidentTypeMemService.getAllAccidentType();
         model.addAttribute("accidentTypes", accidentTypes);
+        model.addAttribute("rules", ruleService.getAllRules());
         return "accident/createAccident";
     }
 
     @PostMapping("/save")
-    public String saveAccident(@ModelAttribute Accident accident, @RequestParam int typeId) {
+    public String saveAccident(@ModelAttribute Accident accident, @RequestParam int typeId, HttpServletRequest req) {
         var accidentType = accidentTypeMemService.getAccidentTypeById(typeId).get();
+        String[] ids = req.getParameterValues("rIds");
         accident.setType(accidentType);
-        accidentService.addAccident(accident);
+        accidentService.addAccident(accident, ids);
         return "redirect:/index";
     }
 
@@ -42,14 +47,16 @@ public class AccidentController {
         }
         model.addAttribute("accident", accidentOptional.get());
         model.addAttribute("accidentTypes", accidentTypeMemService.getAllAccidentType());
+        model.addAttribute("rules", ruleService.getAllRules());
         return "accident/editAccident";
     }
 
     @PostMapping("/update")
-    public String updateAccident(Model model, @ModelAttribute Accident accident, @RequestParam int id, @RequestParam int typeId) {
+    public String updateAccident(Model model, @ModelAttribute Accident accident, @RequestParam int id, @RequestParam int typeId, HttpServletRequest req) {
         var type = accidentTypeMemService.getAccidentTypeById(typeId).get();
+        String[] rIds = req.getParameterValues("rIds");
         accident.setType(type);
-        var result = accidentService.updateAccident(id, accident);
+        var result = accidentService.updateAccident(id, accident, rIds);
         if (!result) {
             model.addAttribute("message", "Accident not updated");
             return "error/404";

@@ -40,6 +40,7 @@ public class AccidentMem {
             v.setText(accident.getText());
             v.setAddress(accident.getAddress());
             v.setType(accident.getType());
+            v.setRules(accident.getRules());
             return v;
         }) != null;
     }

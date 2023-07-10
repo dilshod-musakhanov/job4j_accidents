@@ -71,6 +71,17 @@
                         <input type="text" class="form-control" name="name" id="name" th:field="${accident.name}" required>
                     </div>
                     <div class="form-group">
+                        <label for="rIds" name="rIds" class="form-label">Rule</label>
+                        <select class="form-control" id="rIds" name="rIds" multiple required>
+                            <option
+                                    th:each="rule : ${rules}"
+                                    th:value="${rule.id}"
+                                    th:text="${rule.name}"
+                                    th:selected="${accident.rules.contains(rule)}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="text">Text</label>
                         <input type="text" class="form-control" name="text" id="text" th:field="${accident.text}" required>
                     </div>

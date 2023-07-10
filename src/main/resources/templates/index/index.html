@@ -71,6 +71,9 @@
                         <p class="fw-semibold">Type</p>
                     </td>
                     <td>
+                        <p class="fw-semibold">Rules</p>
+                    </td>
+                    <td>
                         <p class="fw-semibold"></p>
                     </td>
                 </tr>
@@ -80,6 +83,11 @@
                     <td th:text="${accident.text}"></td>
                     <td th:text="${accident.address}"></td>
                     <td th:text="${accident.type.name}"></td>
+                    <td>
+                        <ul>
+                            <li th:each="rule : ${accident.rules}" th:text="${rule.name}"></li>
+                        </ul>
+                    </td>
                     <td>
                         <a th:href="@{|/accident/edit?id=${accident.id}|}">
                             <i class="fa fa-pencil-square-o btn"></i>

@@ -24,10 +24,10 @@ public class AccidentTypeMem {
         accidentType1.setName("Two vehicles");
         var accidentType2 = new AccidentType();
         accidentType2.setId(idGenerator.incrementAndGet());
-        accidentType2.setName("Vehicle и pedestrian");
+        accidentType2.setName("Vehicle and pedestrian");
         var accidentType3 = new AccidentType();
         accidentType3.setId(idGenerator.incrementAndGet());
-        accidentType3.setName("Vehicle и bicycle");
+        accidentType3.setName("Vehicle and bicycle");
 
         accidentTypes.put(accidentType1.getId(), accidentType1);
         accidentTypes.put(accidentType2.getId(), accidentType2);

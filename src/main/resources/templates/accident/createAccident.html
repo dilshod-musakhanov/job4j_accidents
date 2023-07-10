@@ -64,24 +64,33 @@
                             </select>
                         </div>
                     </div>
-                        <div class="col-md-6">
-                            <div class="form-group align-items-start">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control" name="name" id="name" required>
-                            </div>
+                    <div class="col-md-6">
+                        <div class="form-group align-items-start">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" name="name" id="name" required>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group align-items-start">
-                                <label for="text">Text</label>
-                                <input type="text" class="form-control" name="text" id="text" required>
-                            </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group align-items-start">
+                            <label for="rIds" name="rIds" class="form-label">Rule</label>
+                            <select class="form-control" id="rIds" name="rIds" multiple required>
+                                <option hidden disabled selected value></option>
+                                <option th:each="rule : ${rules}" th:value="${rule.id}" th:text="${rule.name}"></option>
+                            </select>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group align-items-start">
-                                <label for="address">Address</label>
-                                <input type="text" class="form-control" name="address" id="address" required>
-                            </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group align-items-start">
+                            <label for="text">Text</label>
+                            <input type="text" class="form-control" name="text" id="text" required>
                         </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group align-items-start">
+                            <label for="address">Address</label>
+                            <input type="text" class="form-control" name="address" id="address" required>
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-primary mt-3">Submit</button>
                 </form>
             </div>
