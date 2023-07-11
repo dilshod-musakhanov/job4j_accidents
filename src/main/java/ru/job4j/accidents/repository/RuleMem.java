@@ -3,10 +3,7 @@ package ru.job4j.accidents.repository;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Rule;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
@@ -34,12 +31,20 @@ public class RuleMem {
         rules.put(rule3.getId(), rule3);
     }
 
-    public Optional<Rule> getRuleById(int id) {
-        Rule rule = rules.get(id);
+    public Optional<Rule> getRuleById(String id) {
+        Rule rule = rules.get(Integer.valueOf(id));
         return Optional.ofNullable(rule);
     }
 
-    public List<Rule> getAllRules() {
+    public Set<Rule> getRules(String[] rIds) {
+        Set<Rule> result = new HashSet<>();
+        for (String rId : rIds) {
+            result.add(rules.get(Integer.valueOf(rId)));
+        }
+        return result;
+    }
+
+    public List<Rule> getAll() {
         return rules.values().stream().toList();
     }
 }

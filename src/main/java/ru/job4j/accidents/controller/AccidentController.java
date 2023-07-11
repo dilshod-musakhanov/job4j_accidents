@@ -25,7 +25,7 @@ public class AccidentController {
     public String viewCreateAccident(Model model) {
         List<AccidentType> accidentTypes = accidentTypeMemService.getAll();
         model.addAttribute("types", accidentTypes);
-        model.addAttribute("rules", ruleService.getAllRules());
+        model.addAttribute("rules", ruleService.getAll());
         return "accident/createAccident";
     }
 
@@ -45,7 +45,7 @@ public class AccidentController {
         }
         model.addAttribute("accident", accidentOptional.get());
         model.addAttribute("types", accidentTypeMemService.getAll());
-        model.addAttribute("rules", ruleService.getAllRules());
+        model.addAttribute("rules", ruleService.getAll());
         return "accident/editAccident";
     }
 

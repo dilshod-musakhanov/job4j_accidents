@@ -7,6 +7,7 @@ import ru.job4j.accidents.repository.RuleMem;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -14,10 +15,15 @@ public class RuleService {
     private final RuleMem ruleMem;
 
     public Optional<Rule> getRuleById(String id) {
-        return ruleMem.getRuleById(Integer.parseInt(id));
+        return ruleMem.getRuleById(id);
     }
 
-    public List<Rule> getAllRules() {
-        return ruleMem.getAllRules();
+    public Set<Rule> getRules(String[] rIds) {
+        return ruleMem.getRules(rIds);
     }
+
+    public List<Rule> getAll() {
+        return ruleMem.getAll();
+    }
+
 }
