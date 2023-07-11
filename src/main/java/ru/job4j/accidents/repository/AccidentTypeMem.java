@@ -39,7 +39,7 @@ public class AccidentTypeMem {
         return Optional.ofNullable(accidentType);
     }
 
-    public List<AccidentType> getAllAccidentType() {
+    public List<AccidentType> getAll() {
         return accidentTypes.values().stream().toList();
     }
 

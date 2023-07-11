@@ -23,17 +23,15 @@ public class AccidentController {
 
     @GetMapping("/create")
     public String viewCreateAccident(Model model) {
-        List<AccidentType> accidentTypes = accidentTypeMemService.getAllAccidentType();
-        model.addAttribute("accidentTypes", accidentTypes);
+        List<AccidentType> accidentTypes = accidentTypeMemService.getAll();
+        model.addAttribute("types", accidentTypes);
         model.addAttribute("rules", ruleService.getAllRules());
         return "accident/createAccident";
     }
 
     @PostMapping("/save")
-    public String saveAccident(@ModelAttribute Accident accident, @RequestParam int typeId, HttpServletRequest req) {
-        var accidentType = accidentTypeMemService.getAccidentTypeById(typeId).get();
+    public String saveAccident(@ModelAttribute Accident accident, HttpServletRequest req) {
         String[] ids = req.getParameterValues("rIds");
-        accident.setType(accidentType);
         accidentService.addAccident(accident, ids);
         return "redirect:/index";
     }
@@ -46,16 +44,14 @@ public class AccidentController {
             return "error/404";
         }
         model.addAttribute("accident", accidentOptional.get());
-        model.addAttribute("accidentTypes", accidentTypeMemService.getAllAccidentType());
+        model.addAttribute("types", accidentTypeMemService.getAll());
         model.addAttribute("rules", ruleService.getAllRules());
         return "accident/editAccident";
     }
 
     @PostMapping("/update")
-    public String updateAccident(Model model, @ModelAttribute Accident accident, @RequestParam int id, @RequestParam int typeId, HttpServletRequest req) {
-        var type = accidentTypeMemService.getAccidentTypeById(typeId).get();
+    public String updateAccident(Model model, @ModelAttribute Accident accident, @RequestParam int id, HttpServletRequest req) {
         String[] rIds = req.getParameterValues("rIds");
-        accident.setType(type);
         var result = accidentService.updateAccident(id, accident, rIds);
         if (!result) {
             model.addAttribute("message", "Accident not updated");

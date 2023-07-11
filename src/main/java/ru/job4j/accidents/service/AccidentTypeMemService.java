@@ -17,7 +17,7 @@ public class AccidentTypeMemService {
         return accidentTypeMem.getAccidentTypeById(id);
     }
 
-    public List<AccidentType> getAllAccidentType() {
-        return accidentTypeMem.getAllAccidentType();
+    public List<AccidentType> getAll() {
+        return accidentTypeMem.getAll();
     }
 }
