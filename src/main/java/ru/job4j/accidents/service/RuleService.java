@@ -22,8 +22,8 @@ public class RuleService {
         return ruleMem.getRules(rIds);
     }
 
-    public List<Rule> getAll() {
-        return ruleMem.getAll();
+    public List<Rule> findAll() {
+        return ruleMem.findAll();
     }
 
 }

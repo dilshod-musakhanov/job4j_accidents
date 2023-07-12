@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.repository.AccidentMem;
+import ru.job4j.accidents.repository.AccidentTypeMem;
+import ru.job4j.accidents.repository.RuleMem;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,12 +14,12 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AccidentService {
     private final AccidentMem accidentMem;
-    private final AccidentTypeMemService accidentTypeMemService;
-    private final RuleService ruleService;
+    private final AccidentTypeMem accidentTypeMem;
+    private final RuleMem ruleMem;
 
     public Optional<Accident> addAccident(Accident accident, String[] rIds) {
-        accident.setRules(ruleService.getRules(rIds));
-        accident.setType(accidentTypeMemService.getAccidentTypeById(accident.getType().getId()).get());
+        accident.setRules(ruleMem.getRules(rIds));
+        accident.setType(accidentTypeMem.getAccidentTypeById(accident.getType().getId()).get());
         return accidentMem.addAccident(accident);
     }
 
@@ -25,13 +27,13 @@ public class AccidentService {
         return accidentMem.getAccidentById(id);
     }
 
-    public List<Accident> getAllAccidents() {
-        return accidentMem.getAllAccidents();
+    public List<Accident> findAll() {
+        return accidentMem.findAll();
     }
 
     public boolean updateAccident(int id, Accident accident, String[] rIds) {
-        accident.setRules(ruleService.getRules(rIds));
-        accident.setType(accidentTypeMemService.getAccidentTypeById(accident.getType().getId()).get());
+        accident.setRules(ruleMem.getRules(rIds));
+        accident.setType(accidentTypeMem.getAccidentTypeById(accident.getType().getId()).get());
         return accidentMem.updateAccident(id, accident);
     }
 

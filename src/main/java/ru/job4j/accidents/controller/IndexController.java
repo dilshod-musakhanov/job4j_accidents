@@ -13,7 +13,7 @@ public class IndexController {
 
     @GetMapping({"/", "index"})
     public String indexPage(Model model) {
-        model.addAttribute("accidents", accidentService.getAllAccidents());
+        model.addAttribute("accidents", accidentService.findAll());
         model.addAttribute("user", "Dilshod Musakhanov");
         return "index/index";
     }

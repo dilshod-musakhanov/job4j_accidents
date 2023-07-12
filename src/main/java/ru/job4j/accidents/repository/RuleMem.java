@@ -44,7 +44,7 @@ public class RuleMem {
         return result;
     }
 
-    public List<Rule> getAll() {
+    public List<Rule> findAll() {
         return rules.values().stream().toList();
     }
 }

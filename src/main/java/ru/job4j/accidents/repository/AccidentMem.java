@@ -30,7 +30,7 @@ public class AccidentMem {
         return Optional.ofNullable(accident);
     }
 
-    public List<Accident> getAllAccidents() {
+    public List<Accident> findAll() {
         return accidents.values().stream().toList();
     }
 
