@@ -23,7 +23,7 @@ public class AccidentController {
 
     @GetMapping("/create")
     public String viewCreateAccident(Model model) {
-        List<AccidentType> accidentTypes = accidentTypeMemService.getAll();
+        List<AccidentType> accidentTypes = accidentTypeMemService.findAll();
         model.addAttribute("types", accidentTypes);
         model.addAttribute("rules", ruleService.getAll());
         return "accident/createAccident";
@@ -44,7 +44,7 @@ public class AccidentController {
             return "error/404";
         }
         model.addAttribute("accident", accidentOptional.get());
-        model.addAttribute("types", accidentTypeMemService.getAll());
+        model.addAttribute("types", accidentTypeMemService.findAll());
         model.addAttribute("rules", ruleService.getAll());
         return "accident/editAccident";
     }
