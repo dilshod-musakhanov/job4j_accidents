@@ -13,16 +13,20 @@ import java.util.Set;
 @Repository
 @AllArgsConstructor
 public class RuleJdbcTemplate {
+
+    private static final String INSERT_RULE = "INSERT INTO rule (name) VALUES (?)";
+    private static final String SELECT_RULE = "SELECT id, name FROM rule WHERE id = ?";
+    private static final String SELECT_RULE_LIST = "SELECT id, name FROM rule";
+
     private final JdbcTemplate jdbc;
 
     public Rule save(Rule rule) {
-        jdbc.update("INSERT INTO rule (name) VALUES (?)", rule.getName());
+        jdbc.update(INSERT_RULE, rule.getName());
         return rule;
     }
 
     public Optional<Rule> getById(int id) {
-        return jdbc.query("SELECT id, name FROM rule WHERE id = ?",
-                List.of(id).toArray(),
+        return jdbc.query(SELECT_RULE, List.of(id).toArray(),
                 (rs, rowNum) -> {
                     var rule = new Rule();
                     rule.setId(rs.getInt("id"));
@@ -40,7 +44,7 @@ public class RuleJdbcTemplate {
     }
 
     public List<Rule> findAll() {
-        return jdbc.query("SELECT id, name FROM rule",
+        return jdbc.query(SELECT_RULE_LIST,
                 (rs, rowNum) -> {
                     var rule = new Rule();
                     rule.setId(rs.getInt("id"));
