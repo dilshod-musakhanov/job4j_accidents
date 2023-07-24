@@ -11,9 +11,9 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class AccidentService {
-    private final AccidentJdbcTemplate accidentRepository;
-    private final RuleJdbcTemplate ruleRepository;
-    private final AccidentTypeJdbcTemplate accidentTypeRepository;
+    private final AccidentHibernate accidentRepository;
+    private final RuleHibernate ruleRepository;
+    private final AccidentTypeHibernate accidentTypeRepository;
 
     public Optional<Accident> save(Accident accident, String[] rIds) {
         accident.setRules(ruleRepository.getRules(rIds));
@@ -29,10 +29,10 @@ public class AccidentService {
         return accidentRepository.findAll();
     }
 
-    public boolean update(int id, Accident accident, String[] rIds) {
+    public boolean update(Accident accident, String[] rIds) {
         accident.setRules(ruleRepository.getRules(rIds));
         accidentTypeRepository.getById(accident.getType().getId()).ifPresent(accident::setType);
-        return accidentRepository.update(id, accident);
+        return accidentRepository.update(accident);
     }
 
     public boolean delete(int id) {

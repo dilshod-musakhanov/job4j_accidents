@@ -52,7 +52,7 @@ public class AccidentController {
     @PostMapping("/update")
     public String updateAccident(Model model, @ModelAttribute Accident accident, @RequestParam int id, HttpServletRequest req) {
         String[] rIds = req.getParameterValues("rIds");
-        var result = accidentService.update(id, accident, rIds);
+        var result = accidentService.update(accident, rIds);
         if (!result) {
             model.addAttribute("message", "Accident not updated");
             return "error/404";
