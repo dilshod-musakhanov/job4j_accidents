@@ -89,7 +89,10 @@
                         <label for="address">Address</label>
                         <input type="text" class="form-control" name="address" id="address" th:field="${accident.address}" required>
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                    <button type="submit" class="btn btn-primary mt-3">Update</button>
+                    <div class="back-button mt-3"style="display: inline-block">
+                        <a th:href="@{/accident/delete/{id}(id=${accident.id})}" class="btn btn-warning mt-3">Delete accident</a>
+                    </div>
                 </form>
             </div>
         </div>

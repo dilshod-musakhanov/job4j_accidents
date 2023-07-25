@@ -60,4 +60,16 @@ public class AccidentController {
         model.addAttribute("accidents", accidentService.findAll());
         return "index/index";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteAccident(Model model, @PathVariable int id) {
+        boolean flag = accidentService.delete(id);
+        if (!flag) {
+            model.addAttribute("message", "Unable to delete the accident. Please try again");
+            return "error/404";
+        }
+        model.addAttribute("accidents", accidentService.findAll());
+        return "index/index";
+    }
+
 }
