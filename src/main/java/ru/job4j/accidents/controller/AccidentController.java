@@ -38,7 +38,7 @@ public class AccidentController {
 
     @GetMapping("/edit")
     public String editAccident(Model model, @RequestParam int id) {
-        var accidentOptional = accidentService.getById(id);
+        var accidentOptional = accidentService.findById(id);
         if (accidentOptional.isEmpty()) {
             model.addAttribute("message", "Accident not found");
             return "error/404";
@@ -53,7 +53,7 @@ public class AccidentController {
     public String updateAccident(Model model, @ModelAttribute Accident accident, @RequestParam int id, HttpServletRequest req) {
         String[] rIds = req.getParameterValues("rIds");
         var result = accidentService.update(accident, rIds);
-        if (!result) {
+        if (result == null) {
             model.addAttribute("message", "Accident not updated");
             return "error/404";
         }
@@ -63,11 +63,7 @@ public class AccidentController {
 
     @GetMapping("/delete/{id}")
     public String deleteAccident(Model model, @PathVariable int id) {
-        boolean flag = accidentService.delete(id);
-        if (!flag) {
-            model.addAttribute("message", "Unable to delete the accident. Please try again");
-            return "error/404";
-        }
+        accidentService.deleteById(id);
         model.addAttribute("accidents", accidentService.findAll());
         return "index/index";
     }

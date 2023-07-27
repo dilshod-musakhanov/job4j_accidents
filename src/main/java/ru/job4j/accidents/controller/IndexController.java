@@ -17,7 +17,6 @@ public class IndexController {
     @GetMapping({"/", "index"})
     public String indexPage(Model model) {
         List<Accident> accidents = accidentService.findAll();
-        System.out.println("*** Number of accidents : " + accidents.size());
         model.addAttribute("accidents", accidentService.findAll());
         model.addAttribute("user", "Dilshod Musakhanov");
         return "index/index";
