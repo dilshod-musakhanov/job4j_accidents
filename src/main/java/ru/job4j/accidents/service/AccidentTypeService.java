@@ -18,6 +18,6 @@ public class AccidentTypeService {
     }
 
     public List<AccidentType> findAll() {
-        return (List<AccidentType>) accidentTypeRepository.findAll();
+        return accidentTypeRepository.findAll();
     }
 }

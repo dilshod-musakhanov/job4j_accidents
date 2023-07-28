@@ -27,7 +27,7 @@ public class AccidentService {
     }
 
     public List<Accident> findAll() {
-        return (List<Accident>) accidentRepository.findAll();
+        return accidentRepository.findAll();
     }
 
     public Accident update(Accident accident, String[] rIds) {

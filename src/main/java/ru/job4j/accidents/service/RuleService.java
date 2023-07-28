@@ -3,7 +3,6 @@ package ru.job4j.accidents.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Rule;
-import ru.job4j.accidents.repository.RuleHibernate;
 import ru.job4j.accidents.repository.RuleRepository;
 import ru.job4j.accidents.util.ServiceUtil;
 
@@ -25,7 +24,7 @@ public class RuleService {
     }
 
     public List<Rule> findAll() {
-        return (List<Rule>) ruleRepository.findAll();
+        return ruleRepository.findAll();
     }
 
 }
