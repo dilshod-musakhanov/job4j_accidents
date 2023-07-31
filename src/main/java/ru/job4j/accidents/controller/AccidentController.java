@@ -1,6 +1,7 @@
 package ru.job4j.accidents.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class AccidentController {
         List<AccidentType> accidentTypes = accidentTypeService.findAll();
         model.addAttribute("types", accidentTypes);
         model.addAttribute("rules", ruleService.findAll());
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return "accident/createAccident";
     }
 
@@ -46,11 +48,12 @@ public class AccidentController {
         model.addAttribute("accident", accidentOptional.get());
         model.addAttribute("types", accidentTypeService.findAll());
         model.addAttribute("rules", ruleService.findAll());
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return "accident/editAccident";
     }
 
     @PostMapping("/update")
-    public String updateAccident(Model model, @ModelAttribute Accident accident, @RequestParam int id, HttpServletRequest req) {
+    public String updateAccident(Model model, @ModelAttribute Accident accident, HttpServletRequest req) {
         String[] rIds = req.getParameterValues("rIds");
         var result = accidentService.update(accident, rIds);
         if (result == null) {
@@ -58,6 +61,7 @@ public class AccidentController {
             return "error/404";
         }
         model.addAttribute("accidents", accidentService.findAll());
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return "index/index";
     }
 
@@ -65,6 +69,7 @@ public class AccidentController {
     public String deleteAccident(Model model, @PathVariable int id) {
         accidentService.deleteById(id);
         model.addAttribute("accidents", accidentService.findAll());
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return "index/index";
     }
 

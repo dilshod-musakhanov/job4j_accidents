@@ -44,60 +44,38 @@
                     </li>
                 </ul>
                 <div class="d-flex">
-                    <span class="nav-link text-secondary" th:text="${user.username} + ' |'"></span>
+                    <a class="nav-link text-secondary" th:href="@{/reg}">
+                        <span>SIGN UP |</span>
+                    </a>
                 </div>
                 <div class="d-flex">
-                    <a class="nav-link text-secondary" th:href="@{/users/logout}">
-                        <span>| LOG OUT</span>
+                    <a class="nav-link text-secondary" th:href="@{/users/login}">
+                        <span>| LOG IN</span>
                     </a>
                 </div>
             </div>
         </div>
     </nav>
-    <h3>Report new accident</h3>
-    <div class="row row-cols-1 row-cols-md-2 g-1">
-        <div class="card" style="width: 100%">
-            <div class="card-body">
-                <form th:action="@{/accident/update}" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="id" th:value="${accident.id}">
-                    <div class="form-group">
-                        <label for="type.id" class="form-label">Type</label>
-                        <select class="form-control" id="type.id" name="type.id" required>
-                            <option
-                                    th:each="type : ${types}"
-                                    th:value="${type.id}"
-                                    th:text="${type.name}"
-                                    th:selected="${type.name == accident.type.name}" >
-                            </option>
-                        </select>
+    <div>
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div th:if="${errorMessage != null}" class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <p class="text" th:text="${errorMessage}"></p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <form th:action="@{/reg}" method="POST">
+                    <div class="text-center mb-3">
+                        <h5>PLEASE SIGN UP</h5>
                     </div>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" name="name" id="name" th:field="${accident.name}" required>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control"  name="username" id="username" aria-describedby="name" required>
                     </div>
-                    <div class="form-group">
-                        <label for="rIds" name="rIds" class="form-label">Rule</label>
-                        <select class="form-control" id="rIds" name="rIds" multiple required>
-                            <option
-                                    th:each="rule : ${rules}"
-                                    th:value="${rule.id}"
-                                    th:text="${rule.name}"
-                                    th:selected="${accident.rules.contains(rule)}">
-                            </option>
-                        </select>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" id="password" required>
                     </div>
-                    <div class="form-group">
-                        <label for="text">Text</label>
-                        <input type="text" class="form-control" name="text" id="text" th:field="${accident.text}" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <input type="text" class="form-control" name="address" id="address" th:field="${accident.address}" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary mt-3">Update</button>
-                    <div class="back-button mt-3"style="display: inline-block">
-                        <a th:href="@{/accident/delete/{id}(id=${accident.id})}" class="btn btn-warning mt-3">Delete accident</a>
-                    </div>
+                    <button type="submit" class="btn btn-dark">Submit</button>
                 </form>
             </div>
         </div>
