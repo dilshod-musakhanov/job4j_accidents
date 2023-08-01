@@ -5,4 +5,3 @@ CREATE TABLE accident (
     address VARCHAR NOT NULL,
     accident_type_id int NOT NULL REFERENCES accident_type(id)
 );
-

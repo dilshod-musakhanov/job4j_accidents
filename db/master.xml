@@ -18,4 +18,5 @@
     <include file="scripts/011_dml_insert_authorities_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/012_dml_insert_users_table.sql" relativeToChangelogFile="true"/>
 
+
 </databaseChangeLog>
