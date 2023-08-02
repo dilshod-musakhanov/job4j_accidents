@@ -42,6 +42,7 @@ public class AccidentController {
         var accidentOptional = accidentService.findById(id);
         if (accidentOptional.isEmpty()) {
             model.addAttribute("message", "Accident not found");
+            model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
             return "error/404";
         }
         model.addAttribute("accident", accidentOptional.get());
@@ -57,6 +58,7 @@ public class AccidentController {
         var result = accidentService.update(accident, rIds);
         if (result == null) {
             model.addAttribute("message", "Accident not updated");
+            model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
             return "error/404";
         }
         model.addAttribute("accidents", accidentService.findAll());
