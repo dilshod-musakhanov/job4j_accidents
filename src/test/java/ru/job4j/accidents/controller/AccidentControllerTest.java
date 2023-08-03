@@ -1,12 +1,15 @@
 package ru.job4j.accidents.controller;
 
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -70,4 +73,51 @@ class AccidentControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("accident/editAccident"));
     }
+
+    @Test
+    @WithMockUser
+    public void shouldSaveAccidentAndRedirectIndexPage() throws Exception {
+        String[] rIds = {"1", "2", "3"};
+
+        mockMvc.perform(post("/accident/save")
+                .param("name", "TestName")
+                .param("text", "TestText")
+                .param("address", "TestAddress")
+                .param("type.id", "4")
+                .param("rIds", rIds))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection());
+
+        ArgumentCaptor<Accident> accidentCaptor = ArgumentCaptor.forClass(Accident.class);
+        verify(accidentService, times(1)).save(accidentCaptor.capture(), eq(rIds));
+        Accident capturedAccident = accidentCaptor.getValue();
+        assertThat(capturedAccident.getName()).isEqualTo("TestName");
+        assertThat(capturedAccident.getText()).isEqualTo("TestText");
+        assertThat(capturedAccident.getAddress()).isEqualTo("TestAddress");
+        assertThat(capturedAccident.getType().getId()).isEqualTo(4);
+    }
+
+    @Test
+    @WithMockUser
+    public void shouldUpdateAccidentAndRedirectIndexPage() throws Exception {
+        String[] rIds = {"1", "2", "3"};
+
+        mockMvc.perform(post("/accident/update")
+                        .param("name", "TestName")
+                        .param("text", "TestText")
+                        .param("address", "TestAddress")
+                        .param("type.id", "4")
+                        .param("rIds", rIds))
+                .andDo(print())
+                .andExpect(status().isOk());
+
+        ArgumentCaptor<Accident> accidentCaptor = ArgumentCaptor.forClass(Accident.class);
+        verify(accidentService, times(1)).update(accidentCaptor.capture(), eq(rIds));
+        Accident capturedAccident = accidentCaptor.getValue();
+        assertThat(capturedAccident.getName()).isEqualTo("TestName");
+        assertThat(capturedAccident.getText()).isEqualTo("TestText");
+        assertThat(capturedAccident.getAddress()).isEqualTo("TestAddress");
+        assertThat(capturedAccident.getType().getId()).isEqualTo(4);
+    }
+
 }
